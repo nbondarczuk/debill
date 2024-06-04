@@ -7,43 +7,43 @@ billing system.
 
 ## The ontology
 
-* Event
+### Event
 
 It is a potential change in the system state. It can be CRUD on any of the entieties
 listed below.
 
-* Service
+### Service
 
 It allows an Account holder to generate Usage to be chaerged by a Provider.
 
-* Usage
+### Usage
 
 It is an event of a USage of a Service by an Account.
 
-* Fee
+### Fee
 
 Is is a template for a Charge to be included in an Invoice,
 
-* Subscription
+### Subscription
 
 It grants rights to an Account holder for usage of particular Service.
 
-* Provider
+### Provider
 
 It charges the holder of an Account for Usage of a Service
 
-* Account
+### Account
 
 It is a representation of a physical holder of right to use a Service.
 
-* Billing
+### Billing
 
 It is a event of production of a Charge for a Service for an Account holder.
 
-* Charge
+### Charge
 
 It is an event of production of a Fee for a Usage of Service on an Account holder.
 
-* Invoice (of a Charge for an Account)
+### Invoice
 
-It is a sum of charges for an Usage of a Service.
+It is a total of a Charges for an Usage of a Service for an Account holder produced by a Provider.
