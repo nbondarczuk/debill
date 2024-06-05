@@ -91,6 +91,8 @@ It has a start data and end date.
 
 It has a status like: Created, Active, Suspended, Deactivated.
 
+A label may be associated with a Subscription and it will be added to the invoice charge item.
+
 ### Subscription_History
 
 It stores the event timestamps for a Subscription state changes.
@@ -133,6 +135,21 @@ It is a total sum of a Charges for an Usage of a Service for an Account holder p
 in the scope a Billing Event.
 
 It optionally reference another Invoice being its correction by an UUID.
+
+It has a rough structure like:
+
+- Provider info
+- Invoice number
+- Customer info
+  - Account
+    - Charges
+  - Total charges amount per account
+- Invoice amount
+- Tax amount
+- Total invoice amount
+- Invoice open amount (invoice amount may be paid with cash on account)
+
+The structure will be stored as a JSON relational object.
 
 ### Ledger
 
