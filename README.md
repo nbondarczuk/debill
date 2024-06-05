@@ -92,3 +92,47 @@ A Payment may produce a Cash on account referencing an Invoice by UUID.
 ### Cash
 
 A Cash references bot an Invoice and a Payment by their UUID.
+
+## System components
+
+This is just a rough conceptual model. The main requirement is that runs in K8S, it uses
+a relational database to materialize entities and an off the shelf data bus
+to source the events.
+
+### Database
+
+Any relational DB. Postgress shall be fine but considering Oracle as well. Less Golang
+friendly as there is no ARM Oracle client yet.
+
+### Data bus
+
+The Data Bus is where an Event lives. It is created by an Actor and it is handled by a Hook.
+
+### API
+
+AN api provides CRUD actions to be performed on model entities by a controller.
+
+### Actor
+
+An Actor is a process which can create an Event. It can produce an artefact as well.
+It uses temporals to perform its actions. It polls on external input interfaces.
+It may be triggered by intrnal input to produce an artefact in the output interface.
+
+### Temporal
+
+We can use temporal to implement an Actor. It offers an interface to process
+handling.
+
+Vide https://temporal.io/
+
+### Hook
+
+A Hook is an Event handler reacting to a particular even like a Billing request or Service
+creation or activation (a type of Update).
+
+It can invoke an API CRUD action but a Temporal Job as well.
+
+### K8S
+
+Let's do it in a K8S cluster. Docker, docker compose, controller to manage the system, etc.
+
