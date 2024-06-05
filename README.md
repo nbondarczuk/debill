@@ -2,11 +2,13 @@
 
 Also known as Durable Event Billing Interface Lazy Layer.
 
+The design of it is impacted by BSCS, BRM, Nobill, Telness, MACH Roaming, etc.
+
 ## Purpose
 
 As usual, a PoC to note main entieties and infra components.
 
-## The ontology
+## The ontology - conceptual model
 
 Starting with a list of main entieties to be included in a API for a very generic
 billing system.
@@ -30,41 +32,87 @@ A tag has a name, a color, may be some other properties.
 
 ### Service
 
-It allows an Account holder to generate Usage to be chaerged by a Provider.
+It allows an Account holder to generate Usage to be charged by a Provider if subscribed.
 
-A Service has a name, a Tax UUID, an Account UUID.
+It is assigned as a Subscription with a Fee on a Product.
+
+A Service has a name, a Tax UUID, UoM (Unit of Measure).
+
+A service is available in an Offert. It is provided with a Price. A Fee is created
+when a Service is subscribed ie. when a Subscription is done. The Fee gets initailly
+a Price from a Offert but it can be modified.
 
 ### Usage
 
 It is an Event of a Usage of a Service by an Account.
 
+The Usage Records are stored in the Usage DB. They are DB representations of JSON
+structure which itself is a a internal record representation.
+
 A Usage references a Service by UUID.
+
+It has a context like time stamp, measure (in units of a Service), location, destination, account UUID.
+
+The Usage DB is partitioned by account UUID.
 
 ### Fee
 
 Is is a template for a Charge to be included in an Invoice produced in a Billing run.
 
-A Fee references a Service by UUID.
+It defines a Price for a Product. It is copied from a Price of the Offfert.
+
+A Fee references a Service, a Product, a Subscription by UUID.
+
+It has a periodicity and its type (one time, weekly, montly, etc.)
+
+### Product
+
+A Product is a Service for which a Subscription may be done. It is offered to an Account
+by a Provider.
+
+### Catalog
+
+It is a set of a Product in a Offert.
+
+### Offert
+
+An Offert contains Products with a default Price.
 
 ### Subscription
 
 It grants rights to an Account holder for usage of particular Service.
 
-A Subscription has a Fee template. It is used to produce a Charge in a Billing run.
+A Subscription has a Fee. It is used to produce a Charge in a Billing run.
 
 It has a name. It references a Fee by UUID.
+
+It has a start data and end date.
+
+It has a status like: Created, Active, Suspended, Deactivated.
+
+### Subscription_History
+
+It stores the event timestamps for a Subscription state changes.
 
 ### Provider
 
 It produces a Charge for the holder of an Account for Usage of a Service
 
-It has a name, a address and a tax identification data.
+It has a name, an Address and a Tax identification data.
 
 ### Account
 
-It is a representation of a physical holder of right to use a Service.
+An account has a Subscription for a Service for whcih a Fee can be assigned.
 
-It has a name, an address, etc.
+It has a name, an Address UUID, etc.
+
+### Customer
+
+It is a representation of a physical holder of an Account.
+
+### Address
+
+An Address is a descriptor for a physical location of an Account.
 
 ### Billing
 
@@ -107,6 +155,8 @@ to source the events.
 
 Any relational DB. Postgress shall be fine but considering Oracle as well. Less Golang
 friendly as there is no ARM Oracle client yet.
+
+The data model is created on the fly using the model entieties JSON structures.
 
 ### Data bus
 
