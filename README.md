@@ -1,11 +1,15 @@
-# Yet another billing system
+# DEBILL
+
+Also known as Durable Event Billing Interface Lazy Layer.
 
 ## Purpose
 
-Starting with a list of main entieties to be included in a API for a very generic
-billing system.
+As usual, a PoC to note main entieties and infra components.
 
 ## The ontology
+
+Starting with a list of main entieties to be included in a API for a very generic
+billing system.
 
 ### Event
 
@@ -107,10 +111,12 @@ friendly as there is no ARM Oracle client yet.
 ### Data bus
 
 The Data Bus is where an Event lives. It is created by an Actor and it is handled by a Hook.
+Let's use Kafka.
 
 ### API
 
-AN api provides CRUD actions to be performed on model entities by a controller.
+AN api provides CRUD actions to be performed on model entities by a controller. It shall have
+both REST and gRPC services.
 
 ### Actor
 
@@ -136,3 +142,7 @@ It can invoke an API CRUD action but a Temporal Job as well.
 
 Let's do it in a K8S cluster. Docker, docker compose, controller to manage the system, etc.
 
+### Deployment
+
+In the cloud but very generic so that it can run in AWS, Azure, Google or any other
+future possible cloud.
