@@ -8,10 +8,10 @@ The design of it is impacted by BSCS, BRM, Nobill, Telness, MACH Roaming, etc.
 
 As usual, a PoC to note main entieties and infra components.
 
-## The ontology - conceptual model
+## The ontology
 
 Starting with a list of main entieties to be included in a API for a very generic
-billing system.
+billing system. It is purely coceptual model.
 
 ### Event
 
