@@ -72,11 +72,12 @@ by a Provider.
 
 ### Catalog
 
-It is a set of a Product in a Offert.
+It is a set of Products. A Catalog contains no Prices, just Product list.
 
 ### Offert
 
-An Offert contains Products with a default Price.
+An Offert contains Products with a default Price. It has a date since when it is valid.
+It has a off date since when it is not valid.
 
 ### Subscription
 
@@ -102,21 +103,25 @@ It has a name, an Address and a Tax identification data.
 
 ### Account
 
-An account has a Subscription for a Service for whcih a Fee can be assigned.
+An account has a Subscription for a Service for which a Fee can be assigned.
 
-It has a name, an Address UUID, etc.
+It has a name, Tags, etc.
 
 ### Customer
 
-It is a representation of a physical holder of an Account.
+It is a representation of a physical holder of an Account. It may have many Accounts.
+
+It has a name, an Address, TaxID, etc.
+
+An Invoice is produced for a Customer with Accounts having Subscriptons on Services.
 
 ### Address
 
-An Address is a descriptor for a physical location of an Account.
+An Address is a descriptor for a physical location.
 
 ### Billing
 
-It is an Event of a Billing of a Charge for a Service for an Account holder.
+It is an Event of a Billing of a Charge for a Service for an Account holder - a Customer.
 
 ### Charge
 
@@ -153,7 +158,7 @@ to source the events.
 
 ### Database
 
-Any relational DB. Postgress shall be fine but considering Oracle as well. Less Golang
+Any relational DB, Postgress shall be fine but considering Oracle as well. Less Golang
 friendly as there is no ARM Oracle client yet.
 
 The data model is created on the fly using the model entieties JSON structures.
@@ -166,7 +171,7 @@ Let's use Kafka.
 ### API
 
 AN api provides CRUD actions to be performed on model entities by a controller. It shall have
-both REST and gRPC services.
+both REST and/or gRPC services.
 
 ### Actor
 
