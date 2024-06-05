@@ -30,6 +30,10 @@ Virtually anything as it is referencing any object by an UUID.
 
 A tag has a name, a color, may be some other properties.
 
+### Actor
+
+### User
+
 ### Service
 
 It allows an Account holder to generate Usage to be charged by a Provider if subscribed.
@@ -124,6 +128,8 @@ An Address is a descriptor for a physical location.
 ### Billing
 
 It is an Event of a Billing of a Charge for a Service for an Account holder - a Customer.
+
+### Cycle
 
 ### Charge
 
