@@ -15,7 +15,7 @@ db/status:
 db/clean: db/stop
 	make -C ./db clean
 
-schema: db/create db/start db/status
+schema:
 	make -C ./schema init
 
 install:
