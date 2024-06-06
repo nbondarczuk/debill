@@ -3,7 +3,6 @@
 \i sql/actor.sql
 \i sql/offert.sql
 \i sql/address.sql
-\i sql/out.sql
 \i sql/billing.sql
 \i sql/payment.sql
 \i sql/cash.sql
