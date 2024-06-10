@@ -1,19 +1,20 @@
-include .env
+TARGET=api
 
-db/create:
-	make -C ./db create
+SRC := $(wildcard *.go cmd/*/*.go internal/*/*.go pkg/*/*.go)
 
-db/start:
-	make -C ./db start
+VERSION=$(shell git describe --tags --long --dirty 2>/dev/null)
 
-db/stop:
-	make -C ./db stop
+ifeq ($(VERSION),)
+    VERSION = UNKNOWN
+endif
 
-db/status:
-	make -C ./db status
+LDFLAGS=-ldflags "-X main.version=${VERSION}"
 
-db/clean: db/stop
-	make -C ./db clean
+# Trigger usage of CGDEBUG env var in docker/image target
+GODEBUG=gctrace=1
+
+$(TARGET): $(SRC)
+	go build $(LDFLAGS) -o ./bin/$@ ./cmd/$(TARGET)/main.go
 
 schema:
 	make -C ./schema init
@@ -29,5 +30,18 @@ clean:
 	find . -name .DS_Store -exec rm {} \;
 	find . -name *.log -exec rm {} \;
 
-.PHONY:	schema install gen clean
+help:
+help:
+	@echo 'Common build commands'
+	@echo
+	@echo 'Usage:'
+	@echo '    make schema'
+	@echo '    make install'
+	@echo '    make gen'
+	@echo '    make clean'
+	@make --no-print-directory go/help test/help pg/help
 
+.PHONY:	$(TARGET) schema install gen clean
+
+-include .env
+-include build/include/include.*.mk
