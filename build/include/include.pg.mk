@@ -4,13 +4,16 @@ pg/create:
 pg/start:
 	make -C ./db start
 
+pg/psql:
+	make -C ./db psql
+
 pg/stop:
 	make -C ./db stop
 
 pg/status:
 	make -C ./db status
 
-pg/clean: db/stop
+pg/clean:
 	make -C ./db clean
 
 pg/help:
@@ -19,4 +22,9 @@ pg/help:
 	@echo
 	@echo 'Usage:'
 	@echo '    make pg/create'
+	@echo '    make pg/start'
+	@echo '    make pg/psql'
+	@echo '    make pg/stop'
+	@echo '    make pg/status'
+	@echo '    make pg/clean'
 

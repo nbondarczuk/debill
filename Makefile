@@ -32,7 +32,7 @@ clean:
 
 help:
 help:
-	@echo 'Common build commands'
+	@echo 'Common build targets'
 	@echo
 	@echo 'Usage:'
 	@echo '    make schema'

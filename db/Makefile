@@ -15,3 +15,6 @@ drop:
 
 clean:
 	./scripts/clean.sh
+
+psql:
+	psql -U ${DBUSER} -d ${DBNAME}
