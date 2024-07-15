@@ -31,7 +31,6 @@ clean:
 	find . -name *.log -exec rm {} \;
 
 help:
-help:
 	@echo 'Common build targets'
 	@echo
 	@echo 'Usage:'
@@ -43,5 +42,6 @@ help:
 
 .PHONY:	$(TARGET) schema install gen clean
 
--include .env
+include .env
+export $(shell sed 's/=.*//' .env)
 -include build/include/include.*.mk

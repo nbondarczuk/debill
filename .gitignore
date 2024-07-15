@@ -11,8 +11,6 @@ bin
 .DS_Store
 main
 .netrc
-.env
-.task
 
 # Test binary, built with `go test -c`
 *.test
