@@ -13,6 +13,9 @@ pg/stop:
 pg/status:
 	make -C ./db status
 
+pg/drop:
+	make -C ./db drop
+
 pg/clean:
 	make -C ./db clean
 
@@ -26,5 +29,6 @@ pg/help:
 	@echo '    make pg/psql'
 	@echo '    make pg/stop'
 	@echo '    make pg/status'
+	@echo '    make pg/drop'
 	@echo '    make pg/clean'
 
