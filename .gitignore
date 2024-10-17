@@ -25,3 +25,4 @@ bin/
 
 # Local database (if created)
 ./db/postgres/
+./db/log/

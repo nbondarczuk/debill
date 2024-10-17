@@ -25,20 +25,23 @@ schema: schema/init
 
 gen: schema/gen
 
-clean: db/stop
+clean:
 	find . -name *~ -exec rm {} \;
 	find . -name .DS_Store -exec rm {} \;
 	find . -name *.log -exec rm {} \;
+
+purge: db/stop db/drop db/clean
 
 help:
 	@echo 'Common build targets'
 	@echo
 	@echo 'Usage:'
-	@echo '    make db'
-	@echo '    make schema'
-	@echo '    make install'
-	@echo '    make gen'
-	@echo '    make clean'
+	@echo '    make install - install required binaries'
+	@echo '    make db      - install Postgres DB locally'
+	@echo '    make schema  - create shema in the local Postgres DB'
+	@echo '    make gen     - generate model using local Postgres DB tables'
+	@echo '    make clean   - clean files'
+	@echo '    make purge   - stop and destroy local Postgres DB'
 	@make --no-print-directory go/help test/help db/help schema/help
 
 .PHONY:	$(TARGET) schema install gen clean schema schema/init schema/gen

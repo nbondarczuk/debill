@@ -5,7 +5,7 @@ database:
   # mysql or postgres
   db  : "postgres"
   # enter the required data table or leave it blank.
-  tables: ["account", "address", "customer"]
+  tables: ["account", "address", "customer", "location"]
   # specify a directory for output
   outPath :  "../pkg/gen/model"
   # query code file name, default: gen.go

@@ -21,6 +21,7 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 		Account:  newAccount(db, opts...),
 		Address:  newAddress(db, opts...),
 		Customer: newCustomer(db, opts...),
+		Location: newLocation(db, opts...),
 	}
 }
 
@@ -30,6 +31,7 @@ type Query struct {
 	Account  account
 	Address  address
 	Customer customer
+	Location location
 }
 
 func (q *Query) Available() bool { return q.db != nil }
@@ -40,6 +42,7 @@ func (q *Query) clone(db *gorm.DB) *Query {
 		Account:  q.Account.clone(db),
 		Address:  q.Address.clone(db),
 		Customer: q.Customer.clone(db),
+		Location: q.Location.clone(db),
 	}
 }
 
@@ -57,6 +60,7 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 		Account:  q.Account.replaceDB(db),
 		Address:  q.Address.replaceDB(db),
 		Customer: q.Customer.replaceDB(db),
+		Location: q.Location.replaceDB(db),
 	}
 }
 
@@ -64,6 +68,7 @@ type queryCtx struct {
 	Account  *accountDo
 	Address  *addressDo
 	Customer *customerDo
+	Location *locationDo
 }
 
 func (q *Query) WithContext(ctx context.Context) *queryCtx {
@@ -71,6 +76,7 @@ func (q *Query) WithContext(ctx context.Context) *queryCtx {
 		Account:  q.Account.WithContext(ctx),
 		Address:  q.Address.WithContext(ctx),
 		Customer: q.Customer.WithContext(ctx),
+		Location: q.Location.WithContext(ctx),
 	}
 }
 
