@@ -1,13 +1,13 @@
 version: "0.1"
 database:
   # consult[https://gorm.io/docs/connecting_to_the_database.html]"
-  dsn : "postgres:postgres@tcp(localhost:5432)/debill?charset=utf8mb4&parseTime=true&loc=Local"
-  # input mysql or postgres or sqlite or sqlserver. consult[https://gorm.io/docs/connecting_to_the_database.html]
+  dsn: "host=localhost user=debill password=debill dbname=postgres port=5432 sslmode=disable TimeZone=Asia/Shanghai"
+  # mysql or postgres
   db  : "postgres"
   # enter the required data table or leave it blank.
-  tables  : "event,label,actor,user,provider,customer,account,address,catalog,product,offert,subscriptiob,subscription_history,fee,service,usage,billing,cycle,invoice,charge,ledger,tax,payment,cash"
+  tables: ["account", "address", "customer"]
   # specify a directory for output
-  outPath :  "../../pkg/gen/model"
+  outPath :  "../pkg/gen/model"
   # query code file name, default: gen.go
   outFile :  "model.go"
   # generate unit test for query code

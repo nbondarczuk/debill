@@ -19,3 +19,9 @@ main
 *.out
 
 bin/
+
+# Code config (if any used)
+.vscode/
+
+# Local database (if created)
+./db/postgres/

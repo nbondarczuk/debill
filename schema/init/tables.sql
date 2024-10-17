@@ -1,7 +1,4 @@
 \i sql/account.sql
-\i sql/ledger.sql
-\i sql/actor.sql
-\i sql/offert.sql
 \i sql/address.sql
 \i sql/billing.sql
 \i sql/payment.sql

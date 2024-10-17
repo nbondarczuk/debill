@@ -16,16 +16,16 @@ GODEBUG=gctrace=1
 $(TARGET): $(SRC)
 	go build $(LDFLAGS) -o ./bin/$@ ./cmd/$(TARGET)/main.go
 
-schema:
-	make -C ./schema init
-
 install:
 	go install gorm.io/gen/tools/gentool@latest
 
-gen:
-	gentool -c ./schema/gen/gen.tool
+db: db/create db/start db/status
 
-clean:
+schema: schema/init
+
+gen: schema/gen
+
+clean: db/stop
 	find . -name *~ -exec rm {} \;
 	find . -name .DS_Store -exec rm {} \;
 	find . -name *.log -exec rm {} \;
@@ -34,13 +34,14 @@ help:
 	@echo 'Common build targets'
 	@echo
 	@echo 'Usage:'
+	@echo '    make db'
 	@echo '    make schema'
 	@echo '    make install'
 	@echo '    make gen'
 	@echo '    make clean'
-	@make --no-print-directory go/help test/help pg/help
+	@make --no-print-directory go/help test/help db/help schema/help
 
-.PHONY:	$(TARGET) schema install gen clean
+.PHONY:	$(TARGET) schema install gen clean schema schema/init schema/gen
 
 include .env
 export $(shell sed 's/=.*//' .env)
