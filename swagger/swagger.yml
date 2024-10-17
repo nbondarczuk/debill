@@ -1,0 +1,136 @@
+openapi: 3.0.1
+info:
+  title: api
+  description: |-
+    Debill API
+  contact:
+    name: Norbert Bondarczuk
+    email: nbondarczuk@yahoo.com
+  version: 1.0.0
+tags:
+- name: account
+  description: API account endpoint
+- name: address
+  description: API address endpoint
+- name: customer
+  description: API customer endpoint
+- name: location
+  description: API location endpoint
+paths:
+  /api/account:
+    get:
+      tags:
+      - account
+      summary: Get account
+      operationId: getAccount
+      parameters:
+        - name: Account
+          in: query
+          description: Unique ID of an Account
+          required: true
+          type: string
+          maximum: 255
+      responses:
+        "200":
+          $ref: "#/definitions/AccountResponse"
+  /api/address:
+    get:
+      tags:
+      - address
+      summary: Get address
+      operationId: getAddress
+      parameters:
+        - name: Address
+          in: query
+          description: Unique ID of an Address
+          required: true
+          type: string
+          maximum: 255
+      responses:
+        "200":
+          $ref: "#/definitions/AddressResponse"
+  /api/customer:
+    get:
+      tags:
+      - customer
+      summary: Get customer
+      operationId: getCustomer
+      parameters:
+        - name: Customer
+          in: query
+          description: Unique ID of a Customer
+          required: true
+          type: string
+          maximum: 255
+      responses:
+        "200":
+          $ref: "#/definitions/CustomerResponse"
+  /api/location:
+    get:
+      tags:
+      - location
+      summary: Get location
+      operationId: getLocation
+      parameters:
+        - name: Location
+          in: query
+          description: Unique ID of a Location
+          required: true
+          type: string
+          maximum: 255
+      responses:
+        "200":
+          $ref: "#/definitions/LocationResponse"
+definitions:
+  AccountResponse:
+    type: object
+    required:
+      - account
+    properties:
+      location:
+        type: string
+        description: Unique ID of an Account
+        format: uuid
+        example: e760efc2-9407-4e34-adb2-d7cbc9f94ce2
+      name:
+        type: string
+        description: Descriptive name of an Account
+  AddressResponse:
+    type: object
+    required:
+      - address
+    properties:
+      location:
+        type: string
+        description: Unique ID of an Address
+        format: uuid
+        example: e760efc2-9407-4e34-adb2-d7cbc9f94ce2
+      name:
+        type: string
+        description: Descriptive name of an Address
+  CustomerResponse:
+    type: object
+    required:
+      - customer
+    properties:
+      location:
+        type: string
+        description: Unique ID of a Customer
+        format: uuid
+        example: e760efc2-9407-4e34-adb2-d7cbc9f94ce2
+      name:
+        type: string
+        description: Descriptive name of a Customer
+  LocationResponse:
+    type: object
+    required:
+      - location
+    properties:
+      location:
+        type: string
+        description: Unique ID of a Location
+        format: uuid
+        example: e760efc2-9407-4e34-adb2-d7cbc9f94ce2
+      name:
+        type: string
+        description: Descriptive name of a Location

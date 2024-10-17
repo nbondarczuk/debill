@@ -14,7 +14,7 @@ LDFLAGS=-ldflags "-X main.version=${VERSION}"
 GODEBUG=gctrace=1
 
 $(TARGET): $(SRC)
-	go build $(LDFLAGS) -o ./bin/$@ ./cmd/$(TARGET)/main.go
+	go build $(LDFLAGS) -o ./bin/$@-server ./swagger/cmd/$(TARGET)-server/main.go
 
 install:
 	go install gorm.io/gen/tools/gentool@latest
@@ -25,12 +25,18 @@ schema: schema/init
 
 gen: schema/gen
 
+server: swagger/generate/server
+
+client: swagger/generate/client
+
 clean:
 	find . -name *~ -exec rm {} \;
 	find . -name .DS_Store -exec rm {} \;
 	find . -name *.log -exec rm {} \;
+	rm -f ./bin/$(TARGET)-server
 
 purge: db/stop db/drop db/clean
+	rm -Rf ./swagger/cmd ./swagger/models ./swagger/restapi
 
 help:
 	@echo 'Common build targets'
@@ -40,9 +46,10 @@ help:
 	@echo '    make db      - install Postgres DB locally'
 	@echo '    make schema  - create shema in the local Postgres DB'
 	@echo '    make gen     - generate model using local Postgres DB tables'
+	@echo '    make server  - generate server using swagger spec'
 	@echo '    make clean   - clean files'
 	@echo '    make purge   - stop and destroy local Postgres DB'
-	@make --no-print-directory go/help test/help db/help schema/help
+	@make --no-print-directory go/help test/help db/help schema/help swagger/help swagger/help
 
 .PHONY:	$(TARGET) schema install gen clean schema schema/init schema/gen
 
