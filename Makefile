@@ -1,4 +1,4 @@
-TARGET=api
+TARGET=debill-api
 
 SRC := $(wildcard *.go cmd/*/*.go internal/*/*.go pkg/*/*.go)
 
@@ -14,7 +14,7 @@ LDFLAGS=-ldflags "-X main.version=${VERSION}"
 GODEBUG=gctrace=1
 
 $(TARGET): $(SRC)
-	go build $(LDFLAGS) -o ./bin/$@-server ./swagger/cmd/$(TARGET)-server/main.go
+	go build $(LDFLAGS) -o ./bin/$@-server ./gen/server/cmd/$(TARGET)-server/main.go
 
 install:
 	go install gorm.io/gen/tools/gentool@latest
@@ -36,7 +36,7 @@ clean:
 	rm -f ./bin/$(TARGET)-server
 
 purge: db/stop db/drop db/clean
-	rm -Rf ./swagger/cmd ./swagger/models ./swagger/restapi
+	rm -Rf ./gen/*
 
 help:
 	@echo 'Common build targets'
@@ -48,7 +48,7 @@ help:
 	@echo '    make gen     - generate model using local Postgres DB tables'
 	@echo '    make server  - generate server using swagger spec'
 	@echo '    make clean   - clean files'
-	@echo '    make purge   - stop and destroy local Postgres DB'
+	@echo '    make purge   - stop and destroy local Postgres DB, remove generated files'
 	@make --no-print-directory go/help test/help db/help schema/help swagger/help swagger/help
 
 .PHONY:	$(TARGET) schema install gen clean schema schema/init schema/gen

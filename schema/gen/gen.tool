@@ -7,7 +7,7 @@ database:
   # enter the required data table or leave it blank.
   tables: ["account", "address", "customer", "location"]
   # specify a directory for output
-  outPath :  "../pkg/gen/model"
+  outPath :  "../gen/db/models"
   # query code file name, default: gen.go
   outFile :  "model.go"
   # generate unit test for query code

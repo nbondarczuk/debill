@@ -8,13 +8,13 @@ swagger/validate:
 	@$(SWAGGER_TOOL_PATH)/swagger.sh validate
 
 swagger/generate/model:
-	@$(SWAGGER_TOOL_PATH)/swagger.sh generate model --skip-validation
+	@$(SWAGGER_TOOL_PATH)/swagger.sh generate model --skip-validation  -t ../gen/model -A debill-api
 
 swagger/generate/server:
-	@$(SWAGGER_TOOL_PATH)/swagger.sh generate server --skip-validation
+	@$(SWAGGER_TOOL_PATH)/swagger.sh generate server --skip-validation -t ../gen/server -A debill-api
 
 swagger/generate/client:
-	@$(SWAGGER_TOOL_PATH)/swagger.sh generate client --skip-validation
+	@$(SWAGGER_TOOL_PATH)/swagger.sh generate client --skip-validation  -t ../gen/client -A debill-api
 
 swagger/serve:
 	@$(SWAGGER_TOOL_PATH)/swagger.sh serve

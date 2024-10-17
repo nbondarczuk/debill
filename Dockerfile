@@ -19,9 +19,9 @@ RUN apk update && apk add ca-certificates
 # set working directory
 WORKDIR /work
 
-COPY --from=builder /work/bin/api-server /work/api-server
+COPY --from=builder /work/bin/debill-api-server /work/debill-api-server
 COPY config/config.yaml /work/config/config.yaml
 USER 1001
 
 # run the binary
-CMD ["./api-server"]
+CMD ["./debill-api-server"]
